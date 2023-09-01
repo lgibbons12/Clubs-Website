@@ -5,8 +5,9 @@ from .models import Post
 class PostAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {"fields": ["name"]}),
-        ("Post Information", {"fields": ["pub_date"],
+        ("Post Information", {"fields": ["pub_date", "picture", "words"],
                               "classes": ["collapse"]}),
+
     ]
     list_display = ["name", "pub_date", "picture", "words"]
     list_filter = ["pub_date"]

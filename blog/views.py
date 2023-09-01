@@ -1,4 +1,5 @@
 from typing import Any
+from django.db import models
 from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.views import generic
@@ -13,3 +14,11 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         return Post.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:10]
+
+
+class PostView(generic.DetailView):
+    model = Post
+    template_name = "blog/post.html"
+
+    def get_queryset(self):
+        return Post.objects.filter(pub_date__lte=timezone.now())

@@ -1,0 +1,14 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ post.name }}</title>
+    </head>
+    <body>
+        <h1>{{ post.name }}</h1>
+        <img src="{{ post.picture.url }}">
+        <h3>{{ post.pub_date }}</h3>
+        <br><br>
+        <p>{{ post.words }}</p>
+    </body>
+</html>

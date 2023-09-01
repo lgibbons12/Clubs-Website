@@ -6,6 +6,7 @@ import datetime
 class Post(models.Model):
     name = models.CharField(max_length=50)
     picture = models.ImageField()
+    
     pub_date = models.DateTimeField("date published")
     words = models.CharField(max_length=250)
 
