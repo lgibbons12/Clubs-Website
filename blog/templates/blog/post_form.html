@@ -1,4 +1,29 @@
-<form method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save">
-</form>
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit a Post - Cannon Clubs</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Your Blog</h1>
+        
+    </header>
+    <nav>
+        <ul>
+            <!-- Navigation links go here -->
+        </ul>
+    </nav>
+    <div class="container">
+        <h2>Submit a Post</h2>
+        <form method="post">{% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Save">
+        </form>
+    </div>
+    <footer>
+        &copy; 2023 Cannon Clubs
+    </footer>
+</body>
+</html>

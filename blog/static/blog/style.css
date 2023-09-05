@@ -7,18 +7,28 @@ body, h1, h2, h3, p, ul, li {
 /* Set a base font and background color */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    color: #333;
+    background-color: black; /* Background color changed to black */
+    color: #fff;
     margin: 0;
     padding: 0;
 }
 
 /* Header style (can be customized) */
 header {
-    background-color: #007acc;
+    background-color: maroon; /* Header background color changed to maroon */
     color: #fff;
     padding: 10px 0;
     text-align: center;
+    animation: fadeIn 1s; /* Fade-in animation */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 /* Navigation menu style */
@@ -26,7 +36,7 @@ nav ul {
     list-style: none;
     display: flex;
     justify-content: center;
-    background-color: #007acc;
+    background-color: maroon; /* Navigation background color changed to maroon */
     padding: 10px 0;
 }
 
@@ -48,25 +58,48 @@ nav a {
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    animation: slideIn 1s; /* Slide-in animation */
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 /* Form style */
 form {
     margin-top: 20px;
+    background-color: maroon; /* Form background color changed to maroon */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 1s; /* Fade-in animation */
 }
 
 form input[type="submit"] {
-    background-color: #007acc;
+    background-color: black; /* Submit button background color changed to black */
     color: #fff;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+    transition: background-color 0.3s; /* Smooth color transition */
+}
+
+form input[type="submit"]:hover {
+    background-color: #333; /* Hover color change */
 }
 
 /* Post page specific styles */
 .post-title {
     font-size: 24px;
     margin-bottom: 10px;
+    color:black;
 }
 
 .post-date {
@@ -77,12 +110,16 @@ form input[type="submit"] {
 .post-content {
     margin-top: 20px;
     line-height: 1.5;
+    color: black;
 }
 
 /* Footer style (can be customized) */
 footer {
     text-align: center;
     padding: 10px 0;
-    background-color: #007acc;
+    background-color: maroon; /* Footer background color changed to maroon */
     color: #fff;
+}
+h3 {
+    color: gold;
 }

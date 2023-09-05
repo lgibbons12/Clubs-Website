@@ -1,11 +1,34 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'blog/style.css' %}">
-{% if latest_blog_entries %}
-    <ul>
-        {% for post in latest_blog_entries %}
-            <li><a href="{% url 'blog:post' post.id %}">{{ post.name }}</a></li>
-    {% endfor %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home - Cannon Clubs</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Cannon Clubs!</h1>
+    </header>
+    <nav>
+        <ul>
+            <!-- Navigation links go here -->
         </ul>
-{% else %}
-        <p>No polls are available.</p>
-{% endif %}
+    </nav>
+    <div class="container">
+        {% if latest_blog_entries %}
+            <ul>
+                {% for post in latest_blog_entries %}
+                    <li><a href="{% url 'blog:post' post.id %}">{{ post.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No posts are available.</p>
+        {% endif %}
+        <h3><a href="{% url 'blog:form' %}">Form!</a></h3>
+    </div>
+    
+    <footer>
+        &copy; 2023 Cannon Clubs
+    </footer>
+</body>
+</html>

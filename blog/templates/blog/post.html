@@ -1,14 +1,28 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>{{ post.name }}</title>
-    </head>
-    <body>
-        <h1>{{ post.name }}</h1>
-        
-        <h3>{{ post.pub_date }}</h3>
-        <br><br>
-        <p>{{ post.words }}</p>
-    </body>
+<head>
+    <title>{{ post.name }} - Cannon Clubs</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Your Blog</h1>
+    </header>
+    <nav>
+        <ul>
+            <!-- Navigation links go here -->
+        </ul>
+    </nav>
+    <div class="container">
+        <h1 class="post-title">{{ post.name }}</h1>
+        <p class="post-date">{{ post.pub_date }}</p>
+        <div class="post-content">
+            {{ post.words }}
+        </div>
+    </div>
+    <footer>
+        &copy; 2023 Cannon Clubs
+    </footer>
+</body>
 </html>
