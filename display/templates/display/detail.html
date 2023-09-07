@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ club.name }} - Cannon Clubs</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'display/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Your Blog</h1>
+    </header>
+    <nav>
+        <ul>
+            <!-- Navigation links go here -->
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>{{ club.name }}</h1>
+        <p>{{ club.leaders }}</p>
+        <h3>{{ club.emails }}</h3>
+        <h4>{{ club.description }}</h4>
+        
+    </div>
+    <footer>
+        &copy; 2023 Cannon Clubs
+    </footer>
+</body>
+</html>

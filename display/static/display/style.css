@@ -1,0 +1,207 @@
+nav {
+    display: flex;
+    justify-content: center;
+    background-color: #333;
+  }
+  
+  ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  li {
+    margin: 0 10px;
+  }
+  
+  a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    background-color: #111;
+  }
+  .picture-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
+    margin: 50px;
+  }
+  
+  .picture {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-out;
+  }
+  
+  .picture:hover img {
+    transform: scale(1.1);
+  }
+  
+  .caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.3s ease-out;
+  }
+  
+  .picture:hover .caption {
+    transform: translateY(0);
+  }
+  
+  .info {
+    color: black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+  
+  
+  
+  
+  
+  /* Style for h1 tag */
+  h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+    text-shadow: 2px 2px #ccc;
+    margin-bottom: 1rem;
+  }
+  
+  /* Style for p tag */
+  .written {
+    padding: 30px;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: #666;
+    margin-bottom: 1.5rem;
+    text-align: justify;
+    text-justify: inter-word;
+    float: left;
+    width: 50%;
+  }
+  
+  
+  body {
+    margin: 0;
+    padding-bottom: 50px; /* set padding bottom equal to footer height */
+    overflow-x: hidden;
+    background-color: #BFADA3;
+  }
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    height: 50px;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Set the minimum height of the body to 100% of the viewport height */
+  }
+  
+  main {
+    flex: 1; /* Set the main content area to take up the remaining vertical space */
+    background-color: #BFADA3;
+  }
+  
+  footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Set the height of the footer */
+  }
+  
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 60px;
+  }
+  
+  .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #C7FFED;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .item h3 {
+    margin-top: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #5B8C5A;
+  }
+  
+  #projects {
+    padding: 20px 50px 100px 50px;
+  }
+  .projectlink {
+    margin-top: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #5B8C5A;
+  }
+  .projectlink:hover {
+    background-color: #84E6F8;
+  }
+  
+  .image {
+    float: right;
+    width: 40%;
+    margin: 0 0 20px 20px;
+  }
+  
+  .written {
+    float: left;
+    width: 50%;
+    margin: 0 20px 20px 0;
+  }
+  
+  #linkinfo {
+    color: #0074D9; /* Sets link color */
+    text-decoration: none; /* Removes underline by default */
+    font-weight: bold; /* Makes text bold */
+    transition: color 0.2s ease-in-out; /* Adds a smooth color transition */
+    padding: 60px;
+    text-align: center;
+  }
+  
+  #linkinfo:hover {
+    color: #7FDBFF; /* Changes link color on hover */
+    text-decoration: underline; /* Adds underline on hover */
+    background-color: #BFADA3;
+  }
+  
