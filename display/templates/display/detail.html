@@ -3,23 +3,31 @@
 <html>
 <head>
     <title>{{ club.name }} - Cannon Clubs</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'display/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'display/detail.css' %}">
 </head>
 <body>
     <header>
-        <h1>Your Blog</h1>
+        <h1>Cannon Clubs</h1>
+      
+            <nav id="navbar">
+                <ul>
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/blog/form">Form</a></li>
+                    <li><a href="/display">Club</a></li>
+                </ul>
+            </nav>
+        
     </header>
     <nav>
         <ul>
             <!-- Navigation links go here -->
         </ul>
     </nav>
-    <div class="container">
+    <div class="detailed">
         <h1>{{ club.name }}</h1>
         <p>{{ club.leaders }}</p>
-        <h3>{{ club.emails }}</h3>
-        <h4>{{ club.description }}</h4>
-        
+        <h3><a href="mailto:email@example.com">{{ club.emails }}</a></h3>
+        <p>{{ club.description }}</p>
     </div>
     <footer>
         &copy; 2023 Cannon Clubs

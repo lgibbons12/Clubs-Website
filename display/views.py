@@ -1,4 +1,5 @@
 from typing import Any
+from django.db import models
 from django.db.models.query import QuerySet
 from django.shortcuts import render
 from .models import Club
@@ -14,3 +15,6 @@ class IndexView(generic.ListView):
 class DetailView(generic.DetailView):
     model = Club
     template_name = "display/detail.html"
+
+    def get_queryset(self):
+        return Club.objects

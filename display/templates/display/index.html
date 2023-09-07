@@ -20,7 +20,7 @@
             
                 {% for club in club_list %}
                 <div class="item">
-                    <img src="{% static 'display/groot.png' %}">
+                    <img src="{% static 'display/groot.png' %}" class="small">
                     <h3><a class="projectlink" href="{% url 'display:club' club.id %}">{{ club.name }}</a></h3>
                 </div>
                     {% endfor %}

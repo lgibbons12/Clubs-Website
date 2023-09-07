@@ -6,3 +6,7 @@ Issues right now
 - make showing pictures possible
 - make websites look pretty
 - create form where people can create blog posts
+
+Okay now we just created the clubs showing
+
+and we have a nav bar now
