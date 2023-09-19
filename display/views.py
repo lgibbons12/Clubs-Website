@@ -9,6 +9,8 @@ from google_sheets import sheets
 class IndexView(generic.ListView):
     template_name = "display/index.html"
     context_object_name = "club_list"
+    clubs_to_delete = Club.objects.all()
+    clubs_to_delete.delete()
     sheets.main()
 
     def get_queryset(self):
