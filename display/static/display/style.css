@@ -147,7 +147,7 @@ nav {
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-color: rgb(135,33,46);
+    background-color: rgb(235, 189, 195);
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -207,4 +207,7 @@ nav {
   }
   .small {
     width: 5px;
+  }
+  #pinkish {
+    background-color: antiquewhite;
   }
