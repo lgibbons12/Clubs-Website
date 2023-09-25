@@ -1,3 +1,5 @@
+
+
 {% load static %}
 <!DOCTYPE html>
 <html>
@@ -6,24 +8,56 @@
     <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}">
 </head>
 <body>
-    <header>
-        <h1>Your Blog</h1>
-        
+    <header id="navbar">
+        <h1>Cannon Clubs</h1>
+        <nav class="navbar-container">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
+                <li class="nav-item"><a href="/blog/form" class="nav-link">Create Blog</a></li>
+            </ul>
+        </nav>
     </header>
-    <nav>
-        <ul>
-            <!-- Navigation links go here -->
-        </ul>
-    </nav>
+    
     <div class="container">
         <h2>Submit a Post</h2>
-        <form method="post">{% csrf_token %}
-            {{ form.as_p }}
+        <form method="post" id="blog-form">{% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}">Name:</label>
+                {{ form.name }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.pub_date.id_for_label }}">Publication Date:</label>
+                {{ form.pub_date }}
+                <button type="button" id="autofill-date">Autofill Current Date</button>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.words.id_for_label }}">Words:</label>
+                <textarea name="{{ form.words.name }}" id="{{ form.words.id }}" rows="4"></textarea>
+            </div>
             <input type="submit" value="Save">
         </form>
     </div>
+    
     <footer>
         &copy; 2023 Cannon Clubs
     </footer>
+
+    <!-- JavaScript to autofill the date -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var autofillButton = document.getElementById('autofill-date');
+        var pubDateField = document.getElementById('id_pub_date');
+
+        autofillButton.addEventListener('click', function() {
+            // Get the current date and format it as needed (e.g., YYYY-MM-DD)
+            var currentDate = new Date();
+            var formattedDate = currentDate.toISOString().split('T')[0];
+
+            // Set the value of the pub_date input field
+            pubDateField.value = formattedDate;
+        });
+    });
+    </script>
 </body>
 </html>

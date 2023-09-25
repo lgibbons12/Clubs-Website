@@ -10,3 +10,7 @@ Issues right now
 Okay now we just created the clubs showing
 
 and we have a nav bar now
+
+
+
+Have pretty text with blogs

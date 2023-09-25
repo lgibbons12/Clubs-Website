@@ -6,17 +6,22 @@
     <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}">
 </head>
 <body>
-    <header>
-        <h1>Cannon Clubs!</h1>
+    <header id="navbar">
+        <h1>Cannon Clubs</h1>
+        <nav class="navbar-container">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
+                <li class="nav-item"><a href="/blog/form" class="nav-link">Create Blog</a></li>
+            </ul>
+        </nav>
     </header>
-    <nav>
-        <ul>
-            <!-- Navigation links go here -->
-        </ul>
-    </nav>
+       
+    
+   
     <div class="container">
         {% if latest_blog_entries %}
-            <ul>
+            <ul class="cool-list">
                 {% for post in latest_blog_entries %}
                     <li><a href="{% url 'blog:post' post.id %}">{{ post.name }}</a></li>
                 {% endfor %}
@@ -24,7 +29,7 @@
         {% else %}
             <p>No posts are available.</p>
         {% endif %}
-        <h3><a href="{% url 'blog:form' %}">Form!</a></h3>
+        
     </div>
     
     <footer>

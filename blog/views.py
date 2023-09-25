@@ -31,3 +31,8 @@ class PostCreateView(generic.CreateView):
     
     def get_success_url(self):
         return reverse("blog:index")
+
+    def form_valid(self, form):
+        # Set the 'pub_date' field to the current date and time
+        form.instance.pub_date = timezone.now()
+        return super().form_valid(form)
