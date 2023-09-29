@@ -5,7 +5,7 @@ from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-
+import csv
 from display.models import Club
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
@@ -20,7 +20,7 @@ credentials_path = os.path.join(script_dir, 'credentials.json')
 
 token_path = os.path.join(script_dir, "token.json")
 
-def main():
+def main(save_to_df):
     creds = None
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file(token_path)
@@ -44,7 +44,11 @@ def main():
         if not values:
             print('No data found.')
             return
-        
+        if save_to_df:
+            with open('clubs.csv', 'w', newline='') as csvfile:
+                csv_writer = csv.writer(csvfile)
+                csv_writer.writerow(values[0])
+                csv_writer.writerows(values[1:])
         # loop through the values and save them into the model
         for row in values[1:]: # skip the header row
             # extract the data from each row
@@ -78,12 +82,13 @@ def main():
                 continue
             club = Club(name=club_name, leaders=leaders, description=description, emails = email)
             club.save()
+            
         
     except HttpError as err:
         print(err)
 
 if __name__ == "__main__":
-    main()
+    main(save_to_df = True)
 
         
         
