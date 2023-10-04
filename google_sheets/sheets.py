@@ -20,7 +20,7 @@ credentials_path = os.path.join(script_dir, 'credentials.json')
 
 token_path = os.path.join(script_dir, "token.json")
 
-def main():
+def main(save_to_df):
     creds = None
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file(token_path)
@@ -81,13 +81,13 @@ def main():
                 continue
             club = Club(name=club_name, leaders=leaders, description=description, emails = email)
             club.save()
+            
         
     except HttpError as err:
         print(err)
 
 if __name__ == "__main__":
-    main()
+    main(save_to_df = True)
 
         
         
-  

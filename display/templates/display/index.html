@@ -6,21 +6,28 @@
     <link rel="stylesheet" type="text/css" href="{% static 'display/style.css' %}">
 </head>
 <body>
-    <header>
-        <h1>Cannon Clubs!</h1>
-    </header>
-    <nav>
-        <ul>
-            <!-- Navigation links go here -->
-        </ul>
-    </nav>
+    
+        <header id="navbar">
+            <h1>Cannon Clubs!</h1>
+            
+            <nav class="navbar-container">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="/blog/form" class="nav-link">Create Blog</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+    
+    
     <div class="main" id="projects">
         <div class="grid">
         {% if club_list %}
             
                 {% for club in club_list %}
-                <div class="item">
-                    <img src="{% static 'display/groot.png' %}" class="small">
+                <div class="item" id="pinkish">
+                    <img src="{% static 'display/cannonclubs.png' %}" class="small">
                     <h3><a class="projectlink" href="{% url 'display:club' club.id %}">{{ club.name }}</a></h3>
                 </div>
                     {% endfor %}

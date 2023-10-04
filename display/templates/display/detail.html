@@ -6,23 +6,16 @@
     <link rel="stylesheet" type="text/css" href="{% static 'display/detail.css' %}">
 </head>
 <body>
-    <header>
-        <h1>Cannon Clubs</h1>
-      
-            <nav id="navbar">
-                <ul>
-                    <li><a href="/blog">Blog</a></li>
-                    <li><a href="/blog/form">Form</a></li>
-                    <li><a href="/display">Club</a></li>
-                </ul>
-            </nav>
-        
+    <header id="navbar">
+        <nav class="navbar-container">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
+                <li class="nav-item"><a href="/blog/form" class="nav-link">Create Blog</a></li>
+            </ul>
+        </nav>
     </header>
-    <nav>
-        <ul>
-            <!-- Navigation links go here -->
-        </ul>
-    </nav>
+    
     <div class="detailed">
         <h1>{{ club.name }}</h1>
         <p>{{ club.leaders }}</p>

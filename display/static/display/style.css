@@ -79,12 +79,9 @@ nav {
   
   /* Style for h1 tag */
   h1 {
-    font-size: 3rem;
-    font-weight: bold;
+    padding: 0;
+    margin: 0;
     text-align: center;
-    color: rgb(152,0,46);
-    text-shadow: 2px 2px #ccc;
-    margin-bottom: 1rem;
   }
   
   /* Style for p tag */
@@ -147,7 +144,7 @@ nav {
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-color: rgb(135,33,46);
+    background-color: slategray;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -208,3 +205,88 @@ nav {
   .small {
     width: 5px;
   }
+  #pinkish {
+    background-color: slategray;
+  }
+
+  
+/* Style the header/navbar */
+#navbar {
+  background-color: rgb(152, 0, 46);
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.navbar-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-item {
+  margin-right: 20px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+.nav-item {
+  margin-right: 20px;
+  font-size: 18px; /* Adjust the font size as needed */
+}
+
+/* Increase the height and padding of the navbar to make it taller */
+#navbar {
+  background-color: rgb(152, 0, 46);
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px; /* Adjust the height as needed */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+
+/* Increase the line height and padding for the navbar links */
+.nav-link {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: color 0.3s ease;
+  padding: 15px 20px; /* Adjust the padding as needed */
+  line-height: 30px; /* Adjust the line height as needed */
+  font-size: 20px; /* Adjust the font size as needed */
+}
+
+/* Increase the font size and padding for the content */
+.content {
+  padding: 20px; /* Adjust the padding as needed */
+  font-size: 16px; /* Adjust the font size as needed */
+}

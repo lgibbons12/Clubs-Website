@@ -5,7 +5,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: black;
+    background-color: rgb(219, 189, 189);
 }
 
 .detailed {
@@ -48,3 +48,85 @@ body {
     line-height: 1.5;
     color: black;
 }
+
+/* Style the header/navbar */
+#navbar {
+    background-color: rgb(152, 0, 46);
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.navbar-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav-item {
+    margin-right: 20px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+.nav-item {
+    margin-right: 20px;
+    font-size: 18px; /* Adjust the font size as needed */
+}
+
+/* Increase the height and padding of the navbar to make it taller */
+#navbar {
+    background-color: rgb(152, 0, 46);
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120px; /* Adjust the height as needed */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+
+/* Increase the line height and padding for the navbar links */
+.nav-link {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    padding: 15px 20px; /* Adjust the padding as needed */
+    line-height: 30px; /* Adjust the line height as needed */
+    font-size: 20px; /* Adjust the font size as needed */
+}
+
+/* Increase the font size and padding for the content */
+.content {
+    padding: 20px; /* Adjust the padding as needed */
+    font-size: 16px; /* Adjust the font size as needed */
+}
+
