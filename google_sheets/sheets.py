@@ -5,7 +5,7 @@ from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-
+import pandas as pd
 from display.models import Club
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
@@ -25,6 +25,7 @@ def main():
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file(token_path)
     if not creds or not creds.valid:
+        print("something is going wrong")
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
@@ -44,6 +45,8 @@ def main():
         if not values:
             print('No data found.')
             return
+        df = pd.DataFrame(data = values[1:], columns=values)
+        print(df)
         
         # loop through the values and save them into the model
         for row in values[1:]: # skip the header row
