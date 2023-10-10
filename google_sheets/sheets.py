@@ -9,8 +9,11 @@ import pandas as pd
 from display.models import Club
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
+link = 'https://docs.google.com/spreadsheets/d/13LE0EJ3JziGz_ISYmr1eNyoDln-EeFBFWXUbeE-TbQc/edit#gid=391256049'
+parts = link.split("/")
+good_part = parts[5]
 
-SAMPLE_SPREADSHEET_ID = '13LE0EJ3JziGz_ISYmr1eNyoDln-EeFBFWXUbeE-TbQc'
+SAMPLE_SPREADSHEET_ID = good_part
 SAMPLE_RANGE_NAME = 'Form Responses 1!B1:F50'
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -20,7 +23,7 @@ credentials_path = os.path.join(script_dir, 'credentials.json')
 
 token_path = os.path.join(script_dir, "token.json")
 
-def main(save_to_df):
+def main():
     creds = None
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file(token_path)
@@ -46,15 +49,27 @@ def main(save_to_df):
             print('No data found.')
             return
         df = pd.DataFrame(data = values[1:], columns=values)
-        print(df)
+        x = pd.DataFrame(data = values[1:], columns=values)
+        
         
         # loop through the values and save them into the model
-        for row in values[1:]: # skip the header row
+        for idx, row in df.iterrows(): # skip the header row
             # extract the data from each row
-            club_name = row[0]
-            first_name = row[1]
-            last_name = row[2]
-            description = row[4]
+            
+            
+            
+            
+            for colly in x.columns:
+                if "overview" in colly[0].lower():  # Case-insensitive check
+                    name = colly[0]
+            
+            
+            club_name = row["Name of Club"].iloc[0]
+            first_name = row["Your First Name"].iloc[0]
+            last_name = row["Your Last Name"].iloc[0]
+            description = row[name].iloc[0]
+
+            
 
             # reformat the data according to your rules
             if '/' in first_name:
@@ -87,7 +102,7 @@ def main(save_to_df):
         print(err)
 
 if __name__ == "__main__":
-    main(save_to_df = True)
+    main()
 
         
         

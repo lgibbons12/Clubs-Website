@@ -6,6 +6,8 @@ from google_sheets import sheets
 def reset_sheets(modeladmin, request, queryset):
     if len(Club.objects.all()) > 3:
         return
+    obs = Club.objects.all()
+    obs.delete()
     sheets.main()
 
 class ClubAdmin(admin.ModelAdmin):
