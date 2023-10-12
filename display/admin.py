@@ -3,12 +3,17 @@ from .models import Club
 # Register your models here.
 from google_sheets import sheets
 
+@admin.action(description="Reset Club Information from Spreadsheet")
 def reset_sheets(modeladmin, request, queryset):
-    if len(Club.objects.all()) > 3:
-        return
+    
     obs = Club.objects.all()
     obs.delete()
     sheets.main()
+
+@admin.action(description="Remove Club from Spreadsheet")
+def remove_from_sheet(modeladmin, request, queryset):
+    queryset.delete()
+    #add in here functionality to remove from spreadsheet
 
 class ClubAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -21,7 +26,7 @@ class ClubAdmin(admin.ModelAdmin):
     list_display = ["name", "leaders", "emails", "description"]
     #list_filter = ["name"]
     search_fields = ["name"]
-    actions = [reset_sheets]
+    actions = [reset_sheets, remove_from_sheet]
     
 
 admin.site.register(Club, ClubAdmin)
