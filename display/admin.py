@@ -10,6 +10,14 @@ def reset_sheets(modeladmin, request, queryset):
     obs.delete()
     sheets.main()
 
+@admin.action(description="New Spreadsheet")
+def new_sheet(modeladmin, request, queryset):
+    link = queryset.first().sheet_link
+    obs = Club.objects.all()
+    obs.delete()
+    sheets.main(sheet = link)
+    
+
 @admin.action(description="Remove Club from Spreadsheet")
 def remove_from_sheet(modeladmin, request, queryset):
     queryset.delete()
@@ -26,7 +34,7 @@ class ClubAdmin(admin.ModelAdmin):
     list_display = ["name", "leaders", "emails", "description"]
     #list_filter = ["name"]
     search_fields = ["name"]
-    actions = [reset_sheets, remove_from_sheet]
+    actions = [reset_sheets, remove_from_sheet, new_sheet]
     
 
 admin.site.register(Club, ClubAdmin)

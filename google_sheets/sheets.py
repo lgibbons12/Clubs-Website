@@ -6,15 +6,15 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import pandas as pd
-from display.models import Club
+#from display.models import Club
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 link = 'https://docs.google.com/spreadsheets/d/13LE0EJ3JziGz_ISYmr1eNyoDln-EeFBFWXUbeE-TbQc/edit#gid=391256049'
 parts = link.split("/")
 good_part = parts[5]
 
-SAMPLE_SPREADSHEET_ID = good_part
-SAMPLE_RANGE_NAME = 'Form Responses 1!B1:F50'
+sheet_id = good_part
+range_name = 'Form Responses 1!B1:F50'
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -23,7 +23,23 @@ credentials_path = os.path.join(script_dir, 'credentials.json')
 
 token_path = os.path.join(script_dir, "token.json")
 
-def main():
+
+def main(sheet = None, dfy = False, testing_link = False):
+    if sheet is not None:
+        parts = sheet.split("/")
+        good_part = parts[5]
+        with open('link.txt', 'w') as f:
+            f.write(good_part)
+    
+    if os.path.exists('link.txt') == False:
+        with open('link.txt', 'w') as f:
+            f.write(sheet_id)
+
+    id = None
+    with open('link.txt', 'r') as f:
+        id = f.read()
+    if testing_link:
+        return id
     creds = None
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file(token_path)
@@ -41,8 +57,8 @@ def main():
     try:
         service = build('sheets', 'v4', credentials=creds)
         sheet = service.spreadsheets()
-        result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
-                                    range=SAMPLE_RANGE_NAME).execute()
+        result = sheet.values().get(spreadsheetId=id,
+                                    range=range_name).execute()
         values = result.get('values', [])
         
         if not values:
@@ -87,7 +103,9 @@ def main():
 
                 email = first_name[0] + last_name + "@cannonschool.org"
                 email = email.lower()
-                
+            
+            if dfy:
+                return (club_name, leaders, description)
             # create a new club instance and save it
             if " " in email:
                 del email
@@ -102,7 +120,16 @@ def main():
         print(err)
 
 if __name__ == "__main__":
-    main()
+    sheet = input("Sheet link for testing: ")
+    df = input("Testing Df? (1 for yes) ")
+    testing_link = input("Testing Link? (1 for yes)")
+    dfing = False
+    testing = False
+    if int(df) == 1:
+        dfing = True
+    if int(testing_link) == 1:
+        testing = True
+    print(main(sheet = sheet, dfy = dfing, testing_link = testing))
 
         
         

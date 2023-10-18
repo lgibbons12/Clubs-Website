@@ -4,6 +4,8 @@ from django.db.models.query import QuerySet
 from django.shortcuts import render
 from .models import Club
 from django.views import generic
+from django.utils import timezone
+from django.urls import reverse
 
 
 class IndexView(generic.ListView):
@@ -21,3 +23,17 @@ class DetailView(generic.DetailView):
 
     def get_queryset(self):
         return Club.objects
+
+'''
+class PostCreateView(generic.CreateView):
+    model = Club
+    fields = ["name", "pub_date", "words"]
+    
+    def get_success_url(self):
+        return reverse("display:index")
+
+    def form_valid(self, form):
+        # Set the 'pub_date' field to the current date and time
+        form.instance.pub_date = timezone.now()
+        return super().form_valid(form)
+        '''
