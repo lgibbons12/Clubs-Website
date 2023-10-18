@@ -6,7 +6,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import pandas as pd
-#from display.models import Club
+from display.models import Club
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 link = 'https://docs.google.com/spreadsheets/d/13LE0EJ3JziGz_ISYmr1eNyoDln-EeFBFWXUbeE-TbQc/edit#gid=391256049'
