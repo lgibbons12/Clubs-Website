@@ -19,3 +19,11 @@ SheetsAPI: need to fix token not being saved and get the spreadsheet id and rang
 Connection: connect the blog and clubs pages to each other
 Javascript and CSS to have the website look good
 Add pictures to blog posts?
+
+
+
+Notes for Admins:
+When looking for a new sheet, click on the first club and change the sheet link to the link they want
+then select that club and run new club info
+
+From then on, they can just click the first one and new club info, and they only have to change it when they want to change the spreadsheet link

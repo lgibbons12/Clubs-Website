@@ -1,12 +1,13 @@
 from __future__ import print_function
 import os.path
 from google.oauth2.credentials import Credentials
+from google.oauth2.service_account import Credentials
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import pandas as pd
-from display.models import Club
+
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 link = 'https://docs.google.com/spreadsheets/d/13LE0EJ3JziGz_ISYmr1eNyoDln-EeFBFWXUbeE-TbQc/edit#gid=391256049'
@@ -23,28 +24,20 @@ credentials_path = os.path.join(script_dir, 'credentials.json')
 
 token_path = os.path.join(script_dir, "token.json")
 
+service_path = os.path.join(script_dir, 'clubs_key.json')
+
 
 def main(sheet = None, dfy = False, testing_link = False):
-    if sheet is not None:
-        parts = sheet.split("/")
-        good_part = parts[5]
-        with open('link.txt', 'w') as f:
-            f.write(good_part)
     
-    if os.path.exists('link.txt') == False:
-        with open('link.txt', 'w') as f:
-            f.write(sheet_id)
 
-    id = None
-    with open('link.txt', 'r') as f:
-        id = f.read()
-    if testing_link:
-        return id
+    parts = sheet.split("/")
+    id = parts[5]
     creds = None
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file(token_path)
     if not creds or not creds.valid:
-        print("something is going wrong")
+        creds = Credentials.from_service_account_file(service_path, scopes=SCOPES)
+        '''
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
@@ -52,7 +45,8 @@ def main(sheet = None, dfy = False, testing_link = False):
             creds = flow.run_local_server(port=0)
         
         with open(token_path, 'w') as token:
-            token.write(creds.to_json())\
+            token.write(creds.to_json())
+        '''
     
     try:
         service = build('sheets', 'v4', credentials=creds)
@@ -107,12 +101,13 @@ def main(sheet = None, dfy = False, testing_link = False):
             if dfy:
                 return (club_name, leaders, description)
             # create a new club instance and save it
+            from display.models import Club
             if " " in email:
                 del email
-                club = Club(name=club_name, leaders=leaders, description=description)
+                club = Club(name=club_name, leaders=leaders, description=description, sheet_link=link)
                 club.save()
                 continue
-            club = Club(name=club_name, leaders=leaders, description=description, emails = email)
+            club = Club(name=club_name, leaders=leaders, description=description, emails = email, sheet_link=link)
             club.save()
             
         
