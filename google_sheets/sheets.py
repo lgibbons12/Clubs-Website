@@ -15,7 +15,7 @@ parts = link.split("/")
 good_part = parts[5]
 
 sheet_id = good_part
-range_name = 'Form Responses 1!B1:F50'
+#range_name = 'Form Responses 1!B1:F50'
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -26,17 +26,50 @@ token_path = os.path.join(script_dir, "token.json")
 
 service_path = os.path.join(script_dir, 'clubs_key.json')
 
+def get_last_row_and_column(sheet, spreadsheet_id):
+    result = sheet.get(spreadsheetId=spreadsheet_id).execute()
+    
+    properties = result.get('sheets')[0].get('properties')
+    last_row = properties.get('gridProperties').get('rowCount')
+    last_column = properties.get('gridProperties').get('columnCount')
+    return last_row, last_column
 
+
+def number_to_column_letter(column_number):
+    """
+    Convert a numeric column index to its corresponding letter(s).
+    
+    Args:
+        column_number (int): The numeric column index (1-based).
+        
+    Returns:
+        str: The corresponding column letter(s).
+    """
+    # Subtract 1 to make it 0-based for ASCII calculation
+    column_number -= 1
+    
+    # Calculate the first letter (if any)
+    first_letter = chr(column_number % 26 + ord('A'))
+    
+    # Calculate additional letters (if needed)
+    additional_letters = ""
+    while column_number >= 26:
+        column_number //= 26
+        additional_letters = chr(column_number % 26 + ord('A') - 1) + additional_letters
+    
+    return additional_letters + first_letter
 def main(sheet = None, dfy = False, testing_link = False):
     
 
     parts = sheet.split("/")
     id = parts[5]
     creds = None
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file(token_path)
-    if not creds or not creds.valid:
-        creds = Credentials.from_service_account_file(service_path, scopes=SCOPES)
+    #if os.path.exists('token.json'):
+        #creds = Credentials.from_authorized_user_file(token_path)
+    #if not creds or not creds.valid:
+    creds = Credentials.from_service_account_file(service_path, scopes=SCOPES)
+    if True:
+        pass
         '''
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
@@ -51,8 +84,14 @@ def main(sheet = None, dfy = False, testing_link = False):
     try:
         service = build('sheets', 'v4', credentials=creds)
         sheet = service.spreadsheets()
-        result = sheet.values().get(spreadsheetId=id,
-                                    range=range_name).execute()
+        last_row, last_column = get_last_row_and_column(sheet, id)
+        start_col = 'B'
+        end_col = number_to_column_letter(last_column)
+        range_name = f'Form Responses 1!{start_col}1:{end_col}{last_row}'
+        # Construct the range dynamically
+        
+        
+        result = sheet.values().get(spreadsheetId=id, range=range_name).execute()
         values = result.get('values', [])
         
         if not values:
