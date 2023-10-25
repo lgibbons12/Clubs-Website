@@ -59,7 +59,9 @@ def number_to_column_letter(column_number):
     
     return additional_letters + first_letter
 def main(sheet = None, dfy = False, testing_link = False):
-    
+    with open('link.txt', 'w') as f:
+        f.write(sheet)
+
 
     parts = sheet.split("/")
     id = parts[5]
@@ -148,7 +150,7 @@ def main(sheet = None, dfy = False, testing_link = False):
             
             from display.models import Club
             
-            club = Club(name=club_name, leaders=leaders, description=description, emails = email, sheet_link=link)
+            club = Club(name=club_name, leaders=leaders, description=description, emails = email, sheet_link=link, approved = True)
             club.save()
             
         

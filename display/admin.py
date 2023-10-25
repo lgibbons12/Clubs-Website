@@ -21,7 +21,7 @@ def remove_from_sheet(modeladmin, request, queryset):
 class ClubAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {"fields": ["name"]}),
-        ("Club Information", {"fields": ["leaders", "emails", "description"],
+        ("Club Information", {"fields": ["leaders", "emails", "description", "approved"],
                               "classes": ["collapse"]}),
         ("Change the Sheet Linked", {'fields': ["sheet_link"]}),                      
 
