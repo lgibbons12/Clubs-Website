@@ -23,6 +23,10 @@
     
     <div class="main" id="projects">
         <div class="grid">
+            <div class="item" id="pinkish">
+                <img src="{%static 'display/new_club.png' %}" class="small">
+                <h3><a class="projectlink" href="{% url 'display:form' %}">Create New Club</a></h3>
+            </div>
         {% if club_list %}
             
                 {% for club in club_list %}

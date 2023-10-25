@@ -24,16 +24,12 @@ class DetailView(generic.DetailView):
     def get_queryset(self):
         return Club.objects
 
-'''
-class PostCreateView(generic.CreateView):
+
+class ClubCreateView(generic.CreateView):
     model = Club
-    fields = ["name", "pub_date", "words"]
+    fields = ["name", "leaders", "emails", "description"]
     
     def get_success_url(self):
         return reverse("display:index")
 
-    def form_valid(self, form):
-        # Set the 'pub_date' field to the current date and time
-        form.instance.pub_date = timezone.now()
-        return super().form_valid(form)
-        '''
+    
