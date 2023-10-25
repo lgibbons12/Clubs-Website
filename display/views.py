@@ -11,7 +11,7 @@ class IndexView(generic.ListView):
     context_object_name = "club_list"
     clubs_to_delete = Club.objects.all()
     clubs_to_delete.delete()
-    sheets.main()
+    sheets.main(False)
 
     def get_queryset(self):
         return Club.objects.order_by("name")
