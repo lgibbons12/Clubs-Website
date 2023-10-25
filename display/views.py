@@ -7,15 +7,26 @@ from django.views import generic
 from django.utils import timezone
 from django.urls import reverse
 from google_sheets import return_linky
+from .forms import ClubSearchForm
 
 class IndexView(generic.ListView):
     template_name = "display/index.html"
     context_object_name = "club_list"
     
-    
-
     def get_queryset(self):
-        return Club.objects.order_by("name")
+        queryset = Club.objects.filter(approved=True)
+
+        # Handle search query
+        search_query = self.request.GET.get('search_query')
+        if search_query:
+            queryset = queryset.filter(name__icontains=search_query)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_form'] = ClubSearchForm(self.request.GET)
+        return context
 
 class DetailView(generic.DetailView):
     model = Club

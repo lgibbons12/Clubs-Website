@@ -19,7 +19,10 @@
             </nav>
         </header>
         
-    
+        <form method="get" action="{% url 'display:index' %}">
+            {{ search_form.as_p }}
+            <button type="submit">Search</button>
+        </form>
     
     <div class="main" id="projects">
         <div class="grid">
@@ -30,12 +33,12 @@
         {% if club_list %}
             
                 {% for club in club_list %}
-                {% if club.approved %}
+                
                 <div class="item" id="pinkish">
                     <img src="{% static 'display/cannonclubs.png' %}" class="small">
                     <h3><a class="projectlink" href="{% url 'display:club' club.id %}">{{ club.name }}</a></h3>
                 </div>
-                {% endif %}
+                
                     {% endfor %}
             
         {% else %}
