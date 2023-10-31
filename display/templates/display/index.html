@@ -36,7 +36,7 @@
                 
                 <div class="item" id="pinkish">
                     <img src="{% static 'display/cannonclubs.png' %}" class="small">
-                    <h3 class="texty"><a class="projectlink" href="{% url 'display:club' club.id %}">{{ club.name }}</a></h3>
+                    <h3 class="texty"><a class="projectlink" href="#" data-club-id="{{ club.id }}">{{ club.name }}</a></h3>
                 </div>
                 
                     {% endfor %}
@@ -46,11 +46,35 @@
         {% endif %}
     </div>
     </div>
-    <div class="new-div">
-        <!-- Content for the new div -->
-        <h2>New Div Content</h2>
-        <p>This is the content for the new div.</p>
-    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $(".projectlink").click(function(e) {
+        e.preventDefault();
+
+        var clubId = $(this).data('club-id');
+        console.log(clubId);
+        $.ajax({
+            type: 'GET',
+            url: '{% url "display:club_details" %}',
+            data: {'club_id': clubId},
+            success: function(response) {
+                console.log(response)
+                $(".new-div").html(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+});
+</script>
+<div class="new-div">
+    
+</div>
+
     
     <footer>
         &copy; 2023 Cannon Clubs

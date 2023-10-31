@@ -5,5 +5,6 @@ app_name = "display"
 urlpatterns = [
     path("", views.IndexView.as_view(), name="index"),
     path("<int:pk>/", views.DetailView.as_view(), name="club"),
-    path("form/", views.ClubCreateView.as_view(), name="form")
+    path("form/", views.ClubCreateView.as_view(), name="form"),
+    path('club_details/', views.club_details, name='club_details')
 ]
