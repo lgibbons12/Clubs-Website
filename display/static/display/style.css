@@ -358,7 +358,7 @@ body {
 }
 
 .new-div {
-  background-color: #ddd; /* Add a background color for visibility */
+  /* Add a background color for visibility */
   padding: 20px;
   box-sizing: border-box;
 }
@@ -367,6 +367,7 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Always three columns */
   grid-gap: 20px;
+  overflow: auto;
 }
 
 .item {
@@ -428,3 +429,5 @@ body {
   line-height: 1.5;
   color: black;
 }
+
+

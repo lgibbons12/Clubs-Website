@@ -1,13 +1,14 @@
 from typing import Any
 from django.db import models
 from django.db.models.query import QuerySet
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Club
 from django.views import generic
 from django.utils import timezone
 from django.urls import reverse
 from google_sheets import return_linky
 from .forms import ClubSearchForm
+from django.http import JsonResponse
 
 class IndexView(generic.ListView):
     template_name = "display/index.html"
@@ -55,3 +56,11 @@ class ClubCreateView(generic.CreateView):
         return reverse("display:index")
 
     
+
+def club_details(request):
+    club_id = request.GET.get('club_id', None)
+    if club_id:
+        club = get_object_or_404(Club, id=club_id)
+        return render(request, 'display/club_detail_partial.html', {'club': club})
+    else:
+        return JsonResponse({'error', 'Invalid request'})
