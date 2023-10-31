@@ -36,7 +36,7 @@
                 
                 <div class="item" id="pinkish">
                     <img src="{% static 'display/cannonclubs.png' %}" class="small">
-                    <h3><a class="projectlink" href="{% url 'display:club' club.id %}">{{ club.name }}</a></h3>
+                    <h3 class="texty"><a class="projectlink" href="{% url 'display:club' club.id %}">{{ club.name }}</a></h3>
                 </div>
                 
                     {% endfor %}
@@ -45,6 +45,11 @@
             <p>No clubs are available.</p>
         {% endif %}
     </div>
+    </div>
+    <div class="new-div">
+        <!-- Content for the new div -->
+        <h2>New Div Content</h2>
+        <p>This is the content for the new div.</p>
     </div>
     
     <footer>

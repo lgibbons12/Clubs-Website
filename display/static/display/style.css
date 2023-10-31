@@ -170,7 +170,7 @@ nav {
     margin-top: 10px;
     font-size: 1.2em;
     font-weight: bold;
-    color: white;
+    color: rgb(152, 0, 46);
   }
   .projectlink:hover {
     background-color: white;
@@ -274,7 +274,53 @@ nav {
 }
 
 
-/* Increase the line height and padding for the navbar links */
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: rgb(219, 189, 189);
+}
+
+/* Update background color, shadow, and border-radius for the pinkish item */
+.item#pinkish {
+  text-align: center;
+  background-color: white; /* Change background color to white */
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2), 0px 0px 10px rgba(0, 0, 0, 0.2); /* Add drop shadow */
+  color: rgb(152, 0, 46);
+  max-width: 100%; /* Take up the whole width of the screen */
+}
+
+/* Underline the words on link hover */
+.item#pinkish h3 a:hover {
+  text-decoration: underline;
+  color: rgb(135, 33, 46); /* Change color on hover */
+}
+
+/* Style the header/navbar */
+#navbar {
+  background-color: rgb(152, 0, 46);
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px; /* Adjust the height as needed */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+
+
+/* Update the navbar link styles */
 .nav-link {
   text-decoration: none;
   color: white;
@@ -285,8 +331,58 @@ nav {
   font-size: 20px; /* Adjust the font size as needed */
 }
 
-/* Increase the font size and padding for the content */
-.content {
-  padding: 20px; /* Adjust the padding as needed */
-  font-size: 16px; /* Adjust the font size as needed */
+/* Underline the words on link hover in the navbar */
+.nav-link:hover {
+  text-decoration: underline;
+  color: black; /* Change color on hover */
+}
+
+.texty {
+  color: rgb(152, 0, 46);
+}
+
+.texty:hover {
+  text-decoration: underline;
+  background-color: white;
+  transition: color 0.5s, ease;
+}
+body {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* 2/3 for the grid, 1/3 for the new div */
+  min-height: 100vh;
+  margin: 0;
+}
+
+.main {
+  grid-column: 1; /* Grid items occupy the first column (2/3 of the page) */
+}
+
+.new-div {
+  background-color: #ddd; /* Add a background color for visibility */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Always three columns */
+  grid-gap: 20px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: slategray;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.item img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
