@@ -47,9 +47,12 @@
     </div>
     </div>
     <div class="new-div">
-        <!-- Content for the new div -->
-        <h2>New Div Content</h2>
-        <p>This is the content for the new div.</p>
+        <div class="detailed">
+            <h1>{{ club.name }}</h1>
+            <p>{{ club.leaders }}</p>
+            <h3><a href="mailto:email@example.com">{{ club.emails }}</a></h3>
+            <p>{{ club.description }}</p>
+        </div>
     </div>
     
     <footer>
