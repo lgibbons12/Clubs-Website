@@ -63,4 +63,4 @@ def club_details(request):
         club = get_object_or_404(Club, id=club_id)
         return render(request, 'display/club_detail_partial.html', {'club': club})
     else:
-        return JsonResponse({'error', 'Invalid request'})
+        return JsonResponse({'error', 'Invalid request'}, safe=False)
