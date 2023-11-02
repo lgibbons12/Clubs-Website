@@ -59,3 +59,10 @@ Ran 2 tests in 0.955s
 
 FAILED (errors=2)
 i think it has something to do with some of the rows and columns being blank
+
+
+
+
+-----------------------------
+
+Now we are going to work on making the create and edit clubs page

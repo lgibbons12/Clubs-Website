@@ -1,27 +1,33 @@
 from typing import Any
 from django.db import models
 from django.db.models.query import QuerySet
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Club
 from django.views import generic
 from django.utils import timezone
 from django.urls import reverse
-
+from google_sheets import return_linky
+from .forms import ClubSearchForm
+from django.http import JsonResponse
 
 class IndexView(generic.ListView):
     template_name = "display/index.html"
     context_object_name = "club_list"
-<<<<<<< HEAD
-    clubs_to_delete = Club.objects.all()
-    clubs_to_delete.delete()
-    sheets.main(False)
-=======
-    
-    
->>>>>>> 69c574cd68fafdd5fc53445fc750d61f66bd28bb
 
     def get_queryset(self):
-        return Club.objects.order_by("name")
+        queryset = Club.objects.filter(approved=True)
+
+        # Handle search query
+        search_query = self.request.GET.get('search_query')
+        if search_query:
+            queryset = queryset.filter(name__icontains=search_query)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_form'] = ClubSearchForm(self.request.GET)
+        return context
 
 class DetailView(generic.DetailView):
     model = Club
@@ -30,16 +36,31 @@ class DetailView(generic.DetailView):
     def get_queryset(self):
         return Club.objects
 
-'''
-class PostCreateView(generic.CreateView):
+
+class ClubCreateView(generic.CreateView):
     model = Club
-    fields = ["name", "pub_date", "words"]
+    fields = ["name", "leaders", "emails", "description"]
     
+    def form_valid(self, form):
+        # Set the sheet_link attribute dynamically here
+        # Assuming `get_dynamic_sheet_link` is a method from your package that provides the link
+        form.instance.sheet_link = return_linky.grab()
+
+        # Call the parent class's form_valid method to save the object
+        response = super().form_valid(form)
+
+        # Now you can perform any additional actions after the object is saved
+
+        return response
     def get_success_url(self):
         return reverse("display:index")
 
-    def form_valid(self, form):
-        # Set the 'pub_date' field to the current date and time
-        form.instance.pub_date = timezone.now()
-        return super().form_valid(form)
-        '''
+    
+
+def club_details(request):
+    club_id = request.GET.get('club_id', None)
+    if club_id:
+        club = get_object_or_404(Club, id=club_id)
+        return render(request, 'display/club_detail_partial.html', {'club': club})
+    else:
+        return JsonResponse({'error', 'Invalid request'})

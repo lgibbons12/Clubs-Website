@@ -1,0 +1,53 @@
+
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit a Post - Cannon Clubs</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}">
+</head>
+<body>
+    <header id="navbar">
+        <h1>Cannon Clubs</h1>
+        <nav class="navbar-container">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
+                <li class="nav-item"><a href="/blog/form" class="nav-link">Create Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <h2 style="color: black;">Create a Club</h2>
+        <form method="post" id="club-form">{% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}">Club Name:</label>
+                {{ form.name }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.leaders.id_for_label }}">Leaders:</label>
+                {{ form.leaders }}
+                </div>
+            <div class="form-group">
+                <label for="{{ form.emails.id_for_label }}">Email:</label>
+                {{ form.emails }}
+            
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}">Description:</label>
+                <textarea name="{{ form.description.name }}" id="{{ form.description.id }}" rows="4"></textarea>
+            
+            </div>
+            </div>
+            <input type="submit" value="Save">
+        </form>
+    </div>
+    
+    <footer>
+        &copy; 2023 Cannon Clubs
+    </footer>
+
+    
+</body>
+</html>

@@ -59,10 +59,14 @@ def number_to_column_letter(column_number):
     
     return additional_letters + first_letter
 def main(sheet = None, dfy = False, testing_link = False):
-    
+    with open('link.txt', 'w') as f:
+        f.write(sheet)
+
 
     parts = sheet.split("/")
     id = parts[5]
+    if testing_link:
+        return id
     creds = None
     #if os.path.exists('token.json'):
         #creds = Credentials.from_authorized_user_file(token_path)
@@ -97,8 +101,14 @@ def main(sheet = None, dfy = False, testing_link = False):
         if not values:
             print('No data found.')
             return
+        
+        #make sure all lists inside values are the same length
+        max_len = max(len(sublist) for sublist in values)
+        values = [sublist + [None] * (max_len - len(sublist)) for sublist in values]
+
         df = pd.DataFrame(data = values[1:], columns=values)
         x = pd.DataFrame(data = values[1:], columns=values)
+        
         
         
         # loop through the values and save them into the model
@@ -116,6 +126,7 @@ def main(sheet = None, dfy = False, testing_link = False):
             club_name = row["Name of Club"].iloc[0]
             first_name = row["Your First Name"].iloc[0]
             last_name = row["Your Last Name"].iloc[0]
+            email = row["Email Address"].iloc[0]
             description = row[name].iloc[0]
 
             
@@ -129,24 +140,17 @@ def main(sheet = None, dfy = False, testing_link = False):
                 # Construct leaders string
                 leaders = first_name_parts[0] + " " + last_name_parts[0] + ", " + first_name_parts[1] + " " + last_name_parts[1]
 
-                email = first_name_parts[0][0] + last_name_parts[0] + "@cannonschool.org"
-
+               
             else:
                 leaders = first_name + " " + last_name # concatenate first and last name
-
-                email = first_name[0] + last_name + "@cannonschool.org"
-                email = email.lower()
-            
+  
             if dfy:
                 return (club_name, leaders, description)
             # create a new club instance and save it
+            
             from display.models import Club
-            if " " in email:
-                del email
-                club = Club(name=club_name, leaders=leaders, description=description, sheet_link=link)
-                club.save()
-                continue
-            club = Club(name=club_name, leaders=leaders, description=description, emails = email, sheet_link=link)
+            
+            club = Club(name=club_name, leaders=leaders, description=description, emails = email, sheet_link=link, approved = True)
             club.save()
             
         

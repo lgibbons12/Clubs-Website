@@ -9,3 +9,4 @@ class Club(models.Model):
     leaders = models.CharField(max_length=50)
     emails = models.EmailField()
     description = models.CharField(max_length=1000)
+    approved = models.BooleanField(default=False)
