@@ -5,12 +5,14 @@
 <html>
 <head>
     <title>Submit a Post - Cannon Clubs</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/form.css' %}">
     <link rel="icon" href="{% static 'display/cannonclubs.png' %}"><link>
 </head>
 <body>
     <header id="navbar">
-        <h1>Cannon Clubs</h1>
+        <button id="menu-button">&#9776; Menu</button>
+        <h1>Cannon Clubs!</h1>
+        
         <nav class="navbar-container">
             <ul class="nav-list">
                 <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
@@ -19,6 +21,29 @@
             </ul>
         </nav>
     </header>
+    <div class="new-div">
+    
+    </div>
+    <script>
+        
+        // This function runs when the DOM has fully loaded
+        var navList = document.querySelector('.nav-list');
+        
+
+        // Add event listener for the menu button
+        document.getElementById('menu-button').addEventListener('click', function() {
+            
+            if (navList.style.display === 'none' || navList.style.display === "") {
+                navList.style.display = "flex";
+            }
+            else {
+                navList.style.display = "none";
+            }
+            //navList.classList.toggle('show');
+            });
+       
+        
+    </script>
     
     <div class="container">
         <h2>Submit a Post</h2>
