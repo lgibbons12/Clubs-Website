@@ -317,11 +317,16 @@ body {
 .main {
   grid-column: 1; /* Grid items occupy the first column (2/3 of the page) */
   overflow: auto;
+  padding-right: 300px;
 }
 
 .new-div {
   /* Add a background color for visibility */
-  padding: 20px;
+  padding-top: 80px;
+  padding-right: 20px;
+  top: 150px;
+  right: 0;
+  position: fixed;
   box-sizing: border-box;
   
 }
@@ -343,6 +348,7 @@ body {
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  margin-right: 30px;
 }
 
 .item img {
