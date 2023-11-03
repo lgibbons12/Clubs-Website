@@ -57,10 +57,15 @@ class ClubCreateView(generic.CreateView):
 
     
 
+from django.http import JsonResponse
+
 def club_details(request):
+    
     club_id = request.GET.get('club_id', None)
     if club_id:
         club = get_object_or_404(Club, id=club_id)
+
         return render(request, 'display/club_detail_partial.html', {'club': club})
     else:
-        return JsonResponse({'error', 'Invalid request'}, safe=False)
+        return JsonResponse({'error': 'Invalid request'}, status=400)
+    
