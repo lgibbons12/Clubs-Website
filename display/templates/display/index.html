@@ -4,20 +4,46 @@
 <head>
     <title>Home - Cannon Clubs</title>
     <link rel="stylesheet" type="text/css" href="{% static 'display/style.css' %}">
+    <link rel="icon" href="{% static 'display/cannonclubs.png' %}"><link>
+    
 </head>
 <body>
     
-        <header id="navbar">
-            <h1>Cannon Clubs!</h1>
+    <header id="navbar">
+        <button id="menu-button">&#9776; Menu</button>
+        <h1>Cannon Clubs!</h1>
+        
+        <nav class="navbar-container">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
+                <li class="nav-item"><a href="/blog/form" class="nav-link">Create Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="new-div">
+    
+    </div>
+    <script>
+        
+        // This function runs when the DOM has fully loaded
+        var navList = document.querySelector('.nav-list');
+        
+
+        // Add event listener for the menu button
+        document.getElementById('menu-button').addEventListener('click', function() {
             
-            <nav class="navbar-container">
-                <ul class="nav-list">
-                    <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
-                    <li class="nav-item"><a href="/blog/form" class="nav-link">Create Blog</a></li>
-                </ul>
-            </nav>
-        </header>
+            if (navList.style.display === 'none' || navList.style.display === "") {
+                navList.style.display = "flex";
+            }
+            else {
+                navList.style.display = "none";
+            }
+            //navList.classList.toggle('show');
+            });
+       
+        
+    </script>
         
         <form method="get" action="{% url 'display:index' %}">
             {{ search_form.as_p }}
@@ -28,7 +54,7 @@
         <div class="grid">
             <div class="item" id="pinkish">
                 <img src="{%static 'display/new_club.png' %}" class="small">
-                <h3><a class="projectlink" href="{% url 'display:form' %}">Create New Club</a></h3>
+                <h3><a class="projectlink" href="{% url 'display:form' %}" id="dont">Create New Club</a></h3>
             </div>
         {% if club_list %}
             
@@ -47,34 +73,51 @@
     </div>
     </div>
     
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    
 
 <script>
-$(document).ready(function() {
-    $(".projectlink").click(function(e) {
-        e.preventDefault();
+document.addEventListener("DOMContentLoaded", function() {
+    var projectLinks = document.querySelectorAll(".projectlink");
 
-        var clubId = $(this).data('club-id');
-        console.log(clubId);
-        $.ajax({
-            type: 'GET',
-            url: '{% url "display:club_details" %}',
-            data: {'club_id': clubId},
-            success: function(response) {
-                console.log(response)
-                $(".new-div").html(response);
-            },
-            error: function(error) {
-                console.log(error);
-            }
+    projectLinks.forEach(function(link) {
+        if (link.id === "dont") {
+        // Skip this iteration
+            return;
+        }
+        link.addEventListener("click", function(e) {
+            e.preventDefault();
+
+            var clubId = this.getAttribute('data-club-id');
+            console.log(clubId);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/club_details/?club_id=' + clubId, true);
+
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 400) {
+                    var response = xhr.responseText;
+                    console.log(response);
+                    document.querySelector(".new-div").innerHTML = response;
+                } else {
+                    console.error('Request failed with status', xhr.status);
+                }
+            };
+
+            xhr.onerror = function() {
+                console.error('Request failed');
+            };
+
+            xhr.send();
         });
     });
 });
-</script>
-<div class="new-div">
-    
-</div>
 
+<<<<<<< HEAD
+=======
+</script>
+
+
+>>>>>>> b9f27fc07f4792fb30cf5b58126ea96756da7d5c
     
     <footer>
         &copy; 2023 Cannon Clubs
