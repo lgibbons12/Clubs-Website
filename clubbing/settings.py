@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'google_sheets',
+    'email_schedule',
     'display.apps.DisplayConfig',
     'django.contrib.admin',
     'django.contrib.auth',
