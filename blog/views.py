@@ -15,7 +15,8 @@ class IndexView(generic.ListView):
     context_object_name = "latest_blog_entries"
 
     def get_queryset(self):
-        return Post.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:10]
+       return Post.objects.filter(pub_date__lte=timezone.now(), approved=True).order_by("-pub_date")[:10]
+
 
 
 class PostView(generic.DetailView):
