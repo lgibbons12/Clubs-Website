@@ -23,6 +23,7 @@ def send_email_to_me(modeladmin, request, queryset):
     coolmain.send_email()
 
 
+
 class ClubAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {"fields": ["name"]}),
