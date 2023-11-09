@@ -1,0 +1,89 @@
+{% load static %}
+<html>
+    <head>
+        <title>Approval - Cannon Clubs</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/full.css' %}">
+    <link rel="icon" href="{% static 'display/cannonclubs.png' %}"><link>
+    </head>
+
+    <body>
+        <header id="navbar">
+            <button id="menu-button">&#9776; Menu</button>
+            <h1>Cannon Clubs!</h1>
+            
+            <nav class="navbar-container">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="/blog/form" class="nav-link">Create Blog</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <script>
+            
+            // This function runs when the DOM has fully loaded
+            var navList = document.querySelector('.nav-list');
+            
+    
+            // Add event listener for the menu button
+            document.getElementById('menu-button').addEventListener('click', function() {
+                
+                if (navList.style.display === 'none' || navList.style.display === "") {
+                    navList.style.display = "flex";
+                }
+                else {
+                    navList.style.display = "none";
+                }
+                //navList.classList.toggle('show');
+                });
+           
+            
+        </script>
+           
+        
+<div class="main">
+    {% if combined_objects %}
+        {% with next_obj=combined_objects.0 %}
+            {% if next_obj|is_club %}
+                <p>Club Name: {{ next_obj.name }}</p>
+                {# Add more club information as needed #}
+            {% else %}
+                <p>Post Title: {{ next_obj.title }}</p>
+                {# Add more post information as needed #}
+            {% endif %}
+        {% endwith %}
+    {% else %}
+        <p>No unapproved items</p>
+    {% endif %}
+</div>
+
+<button id="next-btn">Next</button>
+<script>
+    var currentIndex = 0;
+    var combinedObjects = JSON.parse('{{ combined_objects|safe }}');
+
+    function displayNextItem() {
+        if (currentIndex < combinedObjects.length) {
+            var nextObj = combinedObjects[currentIndex++];
+            var contentContainer = document.getElementById('content-container');
+            
+            if (nextObj.is_club) {
+                contentContainer.innerHTML = '<p>Club Name: ' + nextObj.name + '</p>';
+                // Add more club information as needed
+            } else {
+                contentContainer.innerHTML = '<p>Post Title: ' + nextObj.title + '</p>';
+                // Add more post information as needed
+            }
+        } else {
+            // Handle case when all items have been displayed
+            document.getElementById('content-container').innerHTML = '<p>No more unapproved items</p>';
+            document.getElementById('next-btn').disabled = true;
+        }
+    }
+
+    document.getElementById('next-btn').addEventListener('click', displayNextItem);
+</script>
+</body>
+
+</html>
