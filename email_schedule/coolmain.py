@@ -28,9 +28,9 @@ def send_email():
     content = list_of_lists_to_html(string)
     message = Mail(
         from_email='cannonclubs@gmail.com',
-        to_emails='liamwgibbons@gmail.com',
+        to_emails='lgibbons@cannonschool.org',
         subject='Unapproved Clubs',
-        html_content=content)
+        html_content="lW")
 
     try:
         sg = SendGridAPIClient(api_key=os.getenv('SENDGRID_API_KEY'))
