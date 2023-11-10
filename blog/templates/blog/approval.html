@@ -43,25 +43,14 @@
            
         
 <div class="main">
-    {% if combined_objects %}
-        {% with next_obj=combined_objects.0 %}
-            {% if next_obj|is_club %}
-                <p>Club Name: {{ next_obj.name }}</p>
-                {# Add more club information as needed #}
-            {% else %}
-                <p>Post Title: {{ next_obj.title }}</p>
-                {# Add more post information as needed #}
-            {% endif %}
-        {% endwith %}
-    {% else %}
-        <p>No unapproved items</p>
-    {% endif %}
+    
 </div>
 
 <button id="next-btn">Next</button>
 <script>
     var currentIndex = 0;
-    var combinedObjects = JSON.parse('{{ combined_objects|safe }}');
+    var combinedObjects = JSON.parse('{{ combined_objects }}');
+    console.log(combinedObjects)
 
     function displayNextItem() {
         if (currentIndex < combinedObjects.length) {
