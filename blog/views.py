@@ -1,7 +1,7 @@
 from typing import Any
 from django.db import models
 from django.db.models.query import QuerySet
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from django.template import loader
 from django.shortcuts import render
@@ -92,3 +92,25 @@ class ApprovalClubDetailView(generic.DetailView):
 
     def get_queryset(self):
         return Club.objects
+
+
+def approval_code(request):
+    
+    if request.method == 'POST':
+        # Retrieve the parameter from the POST data
+        data = json.loads(request.body.decode('utf-8'))
+        param = data.get('param', None)
+
+        if param == "approved":
+            #approve the club
+            pass
+        elif param == "denied":
+            #deny the club
+            pass
+        else:
+            pass
+        
+        
+    else:
+        # Handle other HTTP methods if needed
+        return JsonResponse({'error': 'Invalid request method'})

@@ -49,12 +49,40 @@
     <div class="post-content">
         {{ object.words|safe }}
     </div>
-<button id="yes_button">Approve</button>
-<button id="no_button">Delete</button>
+<button class = "approvingness" id="yes_button" data-param="approved">Approve</button>
+<button class = "approvingness" id="no_button" data-param="denied">Deny</button>
 
 
 
 
+
+<script>
+    // Attach a click event listener to all buttons with the class 'run_code_button'
+    document.querySelectorAll('.approvingness').forEach(function(button) {
+        button.addEventListener('click', function() {
+            // Extract the 'data-param' attribute value
+            var param = this.getAttribute('data-param');
+
+            // Use AJAX to send a request to a Django view with the parameter
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '{% url "approval_code" %}', true);
+
+            // Set up the request headers if needed
+            // xhr.setRequestHeader('Content-Type', 'application/json');
+
+            // Define what happens on successful data submission
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    console.log(xhr.responseText);
+                    // Handle the response from the server if needed
+                }
+            };
+
+            // Send the request with the parameter
+            xhr.send(JSON.stringify({'param': param}));
+        });
+    });
+</script>
     
 
    
