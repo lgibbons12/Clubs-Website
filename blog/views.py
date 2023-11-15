@@ -70,10 +70,25 @@ def ApprovalView(request):
     num_clubs = len(unapproved_clubs)
     context = {
         "posts_to_approve": num_posts,
-        "clubs_to_approve": num_clubs
+        "clubs_to_approve": num_clubs,
+        "mtm": unapproved
     }
     template = loader.get_template("blog/approval.html")
     
     return HttpResponse(template.render(context, request))
 
 
+class ApprovalPostDetailView(generic.DetailView):
+    model = Post
+    template_name = "blog/approve_post.html"
+
+    def get_queryset(self):
+        return Post.objects.filter(pub_date__lte=timezone.now())
+    
+
+class ApprovalClubDetailView(generic.DetailView):
+    model = Club
+    template_name = "blog/approve_club.html"
+
+    def get_queryset(self):
+        return Club.objects

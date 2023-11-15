@@ -1,0 +1,67 @@
+{% load static %}
+<html>
+    <head>
+        <title>Approval - Cannon Clubs</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/full.css' %}">
+    <link rel="icon" href="{% static 'display/cannonclubs.png' %}"><link>
+    </head>
+
+    <body>
+        <header id="navbar">
+            <button id="menu-button">&#9776; Menu</button>
+            <h1>Cannon Clubs!</h1>
+            
+            <nav class="navbar-container">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="/blog/form" class="nav-link">Create Blog</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <script>
+            
+            // This function runs when the DOM has fully loaded
+            var navList = document.querySelector('.nav-list');
+            
+    
+            // Add event listener for the menu button
+            document.getElementById('menu-button').addEventListener('click', function() {
+                
+                if (navList.style.display === 'none' || navList.style.display === "") {
+                    navList.style.display = "flex";
+                }
+                else {
+                    navList.style.display = "none";
+                }
+                //navList.classList.toggle('show');
+                });
+           
+            
+        </script>
+
+
+<div class="container">
+    <h1>Approving Clubs</h1>
+    <h2 class="post-title">{{ object.name }}</h2>
+        <p class="post-date">{{ object.leaders }}</p>
+        <div class="post-content">
+            {{ object.description }}
+        </div>
+    <button id="yes_button">Approve</button>
+    <button id="no_button">Delete</button>
+
+
+
+
+    
+
+   
+
+
+
+</div>
+</body>
+
+</html>
