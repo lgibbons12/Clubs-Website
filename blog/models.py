@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib import admin
 from django.utils import timezone
 import datetime
+from display.models import Club
 # Create your models here.
 class Post(models.Model):
     name = models.CharField(max_length=50)
@@ -25,3 +26,8 @@ class Post(models.Model):
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
 
+class ThingsToApprove(models.Model):
+    posts = models.ManyToManyField(Post)
+    clubs = models.ManyToManyField(Club)
+
+    

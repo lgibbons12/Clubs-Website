@@ -42,37 +42,15 @@
         </script>
            
         
-<div class="main">
-    
+<div class="container">
+    <h1>Approval Page</h1>
+    <h2>Currently {{ posts_to_approve }} <strong>posts</strong> that need approval</h2>
+    <h2>Currently {{ clubs_to_approve }} <strong>clubs</strong> that need approval</h2>
+
+
+<button id="approval_button">Start Approving</button>
 </div>
 
-<button id="next-btn">Next</button>
-<script>
-    var currentIndex = 0;
-    var combinedObjects = JSON.parse('{{ combined_objects }}');
-    console.log(combinedObjects)
-
-    function displayNextItem() {
-        if (currentIndex < combinedObjects.length) {
-            var nextObj = combinedObjects[currentIndex++];
-            var contentContainer = document.getElementById('content-container');
-            
-            if (nextObj.is_club) {
-                contentContainer.innerHTML = '<p>Club Name: ' + nextObj.name + '</p>';
-                // Add more club information as needed
-            } else {
-                contentContainer.innerHTML = '<p>Post Title: ' + nextObj.title + '</p>';
-                // Add more post information as needed
-            }
-        } else {
-            // Handle case when all items have been displayed
-            document.getElementById('content-container').innerHTML = '<p>No more unapproved items</p>';
-            document.getElementById('next-btn').disabled = true;
-        }
-    }
-
-    document.getElementById('next-btn').addEventListener('click', displayNextItem);
-</script>
 </body>
 
 </html>
