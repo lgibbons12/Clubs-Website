@@ -4,7 +4,7 @@ from django.db.models.query import QuerySet
 from django.http import HttpResponse, JsonResponse
 
 from django.template import loader
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from .models import Post, ThingsToApprove
 from django.utils import timezone
@@ -100,17 +100,22 @@ def approval_code(request):
         # Retrieve the parameter from the POST data
         data = json.loads(request.body.decode('utf-8'))
         param = data.get('param', None)
+        model = data.get("model", None)
+        id = data.get("id", None)
 
         if param == "approved":
-            #approve the club
-            pass
+            if model == "post":
+                item = get_object_or_404(Post, id=id)
+                item.approved = True
+                item.save()
         elif param == "denied":
             #deny the club
+            print("denied")
             pass
         else:
             pass
         
-        
+        return redirect("blog:approval")
     else:
         # Handle other HTTP methods if needed
         return JsonResponse({'error': 'Invalid request method'})
