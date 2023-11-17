@@ -70,4 +70,7 @@ Now we are going to work on making the create and edit clubs page
 
 
 
-we are on branch approving
+we are on branch approveview
+
+
+okay the issue now is that we are having trouble with redirecting the url and deleting the item
