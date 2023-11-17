@@ -586,3 +586,64 @@ body {
     line-height: 1.5;
     color: black;
 }
+
+
+#approval_button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid #fff; /* White border around the button */
+  border-radius: 5px; /* Optional: Rounded corners */
+  background-color: #000; /* Black background color */
+  color: #fff; /* White text color */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition effect */
+}
+
+/* Hover effect */
+#approval_button:hover {
+  background-color: #333; /* Darker background color on hover */
+  color: #fff; /* White text color on hover */
+}
+
+#yes_button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid #fff; /* White border around the button */
+  border-radius: 5px; /* Optional: Rounded corners */
+  background-color: lightgreen; /* Black background color */
+  color: black; /* White text color */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition effect */
+
+}
+
+#yes_button:hover {
+  background-color: green; /* Darker background color on hover */
+  color: #fff; /* White text color on hover */
+}
+
+#no_button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid #fff; /* White border around the button */
+  border-radius: 5px; /* Optional: Rounded corners */
+  background-color: rgb(135, 33, 46); /* Black background color */
+  color: white; /* White text color */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition effect */
+
+}
+
+#no_button:hover {
+  background-color: red; /* Darker background color on hover */
+  color: black; /* White text color on hover */
+}

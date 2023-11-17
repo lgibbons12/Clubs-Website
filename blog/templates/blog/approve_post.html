@@ -1,0 +1,112 @@
+{% load static %}
+<html>
+    <head>
+        <title>Approval - Cannon Clubs</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/full.css' %}">
+    <link rel="icon" href="{% static 'display/cannonclubs.png' %}"><link>
+    </head>
+
+    <body>
+        <header id="navbar">
+            <button id="menu-button">&#9776; Menu</button>
+            <h1>Cannon Clubs!</h1>
+            
+            <nav class="navbar-container">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="/blog/form" class="nav-link">Create Blog</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <script>
+            
+            // This function runs when the DOM has fully loaded
+            var navList = document.querySelector('.nav-list');
+            
+    
+            // Add event listener for the menu button
+            document.getElementById('menu-button').addEventListener('click', function() {
+                
+                if (navList.style.display === 'none' || navList.style.display === "") {
+                    navList.style.display = "flex";
+                }
+                else {
+                    navList.style.display = "none";
+                }
+                //navList.classList.toggle('show');
+                });
+           
+            
+        </script>
+
+
+<div class="container">
+    <h1>Approving Posts</h1>
+<h2 class="post-title">{{ object.name }}</h2>
+<p class="post-date">{{ object.pub_date|date:"F j, Y" }}</p>
+    <div class="post-content">
+        {{ object.words|safe }}
+    </div>
+<button class = "approvingness" id="yes_button" data-param="approved" the-id="{{ object.id }}" model="post">Approve</button>
+<button class = "approvingness" id="no_button" data-param="denied" the-id="{{ object.id }}" model="post">Deny</button>
+
+
+
+
+
+<script>
+    function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Check if this cookie string begins with the name we want
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+    // Attach a click event listener to all buttons with the class 'run_code_button'
+    document.querySelectorAll('.approvingness').forEach(function(button) {
+        button.addEventListener('click', function() {
+            // Extract the 'data-param' attribute value
+            var param = this.getAttribute('data-param');
+            var id = this.getAttribute("the-id");
+            var model = this.getAttribute("model");
+
+            // Use AJAX to send a request to a Django view with the parameter
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '{% url "blog:approval_code" %}', true);
+
+            // Set up the request headers if needed
+            xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+
+            // Define what happens on successful data submission
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    console.log(xhr.responseText);
+                    // Handle the response from the server if needed
+                }
+            };
+
+            // Send the request with the parameter
+            xhr.send(JSON.stringify({'param': param, "id": id, "model": model}));
+        });
+    });
+</script>
+    
+
+   
+
+
+
+</div>
+</body>
+
+</html>
