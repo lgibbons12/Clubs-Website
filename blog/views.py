@@ -61,6 +61,8 @@ def ApprovalView(request):
     # Create a ThingsToApprove instance without saving it to the database
     unapproved = ThingsToApprove()
     unapproved.save()
+    with open("id.txt", 'w') as f:
+        f.write(f"{unapproved.id}")
 
     # Use the set() method to associate posts and clubs with the unapproved instance
     unapproved.posts.set(unapproved_posts)
@@ -103,19 +105,45 @@ def approval_code(request):
         model = data.get("model", None)
         id = data.get("id", None)
 
+        #getting the many to many model to edit relationships
+        with open("id.txt", "r") as f:
+            mtmid = f.read()
+        mtm = get_object_or_404(ThingsToApprove, id=mtmid)
+
         if param == "approved":
             if model == "post":
                 item = get_object_or_404(Post, id=id)
                 item.approved = True
+                mtm.posts.remove(item)
                 item.save()
+            elif model == "club":
+                item = get_object_or_404(Club, id=id)
+                item.approved = True
+                mtm.clubs.remove(item)
+                item.save()
+            else:
+                raise ValueError("incorrect model input")
         elif param == "denied":
-            #deny the club
-            print("denied")
-            pass
+            if model == "post":
+                item = get_object_or_404(Post, id=id)
+                mtm.posts.remove(item)
+                item.delete()
+            elif model == "club":
+                item = get_object_or_404(Club, id=id)
+                mtm.clubs.remove(item)
+                item.delete()
+            else:
+                raise ValueError("incorrect model input")
         else:
-            pass
+            raise ValueError("param is invalid")
         
-        return redirect("blog:approval")
+        with open("id.txt", "r") as f:
+            mtmid = f.read()
+        
+        
+        
+        if len(mtm.posts) > 0:
+            return redirect("blog:approval_post_detail")
     else:
         # Handle other HTTP methods if needed
         return JsonResponse({'error': 'Invalid request method'})
