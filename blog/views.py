@@ -55,12 +55,16 @@ def serialize_objects(objs):
         return json.loads(serialize('json', [objs]))[0]
     
 def ApprovalView(request):
+    obs = ThingsToApprove.objects.all()
+    obs.delete()
     unapproved_posts = Post.objects.filter(approved=False)
     unapproved_clubs = Club.objects.filter(approved=False)
 
     # Create a ThingsToApprove instance without saving it to the database
     unapproved = ThingsToApprove()
     unapproved.save()
+    with open("blog/static/blog/id.txt", 'w') as f:
+        f.write(f"{unapproved.id}")
 
     # Use the set() method to associate posts and clubs with the unapproved instance
     unapproved.posts.set(unapproved_posts)
@@ -85,6 +89,8 @@ class ApprovalPostDetailView(generic.DetailView):
     def get_queryset(self):
         return Post.objects.filter(pub_date__lte=timezone.now())
     
+    
+    
 
 class ApprovalClubDetailView(generic.DetailView):
     model = Club
@@ -95,27 +101,56 @@ class ApprovalClubDetailView(generic.DetailView):
 
 
 def approval_code(request):
-    
     if request.method == 'POST':
-        # Retrieve the parameter from the POST data
         data = json.loads(request.body.decode('utf-8'))
         param = data.get('param', None)
         model = data.get("model", None)
         id = data.get("id", None)
 
+        # Getting the many-to-many model to edit relationships
+        with open("blog/static/blog/id.txt", "r") as f:
+            mtmid = f.read()
+        mtm = get_object_or_404(ThingsToApprove, id=mtmid)
+
         if param == "approved":
             if model == "post":
                 item = get_object_or_404(Post, id=id)
                 item.approved = True
+                mtm.posts.remove(item)
                 item.save()
+            elif model == "club":
+                item = get_object_or_404(Club, id=id)
+                item.approved = True
+                mtm.clubs.remove(item)
+                item.save()
+            else:
+                raise ValueError("incorrect model input")
         elif param == "denied":
-            #deny the club
-            print("denied")
-            pass
+            if model == "post":
+                item = get_object_or_404(Post, id=id)
+                mtm.posts.remove(item)
+                print(f"Before delete: {item}")
+                item.delete()
+                print(f"After delete: {item}")
+                
+            elif model == "club":
+                item = get_object_or_404(Club, id=id)
+                mtm.clubs.remove(item)
+                item.delete()
+            else:
+                raise ValueError("incorrect model input")
         else:
-            pass
+            raise ValueError("param is invalid")
+
+        # Redirect to the next post's ApprovalPostDetailView
+        next_post = mtm.posts.first()  # Get the next post
+        if next_post:
+            print("trying to redirect")
+            redirect_url = reverse("blog:approval_post_detail", kwargs={'pk': next_post.id})
+            return redirect(redirect_url)
         
-        return redirect("blog:approval")
+        return HttpResponse("POST request processed successfully")
+
     else:
         # Handle other HTTP methods if needed
         return JsonResponse({'error': 'Invalid request method'})
