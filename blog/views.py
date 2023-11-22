@@ -124,7 +124,7 @@ def approval_code(request):
                 mtm.clubs.remove(item)
                 item.save()
             else:
-                raise ValueError("incorrect model input")
+                print(f"Model tried: {model}")
         elif param == "denied":
             if model == "post":
                 item = get_object_or_404(Post, id=id)
@@ -138,7 +138,7 @@ def approval_code(request):
                 mtm.clubs.remove(item)
                 item.delete()
             else:
-                raise ValueError("incorrect model input")
+                print(f"Model tried: {model}")
         else:
             raise ValueError("param is invalid")
 
