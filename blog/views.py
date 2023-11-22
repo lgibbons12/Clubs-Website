@@ -101,6 +101,7 @@ class ApprovalClubDetailView(generic.DetailView):
 
 
 def approval_code(request):
+    
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
         param = data.get('param', None)
@@ -142,12 +143,7 @@ def approval_code(request):
         else:
             raise ValueError("param is invalid")
 
-        # Redirect to the next post's ApprovalPostDetailView
-        next_post = mtm.posts.first()  # Get the next post
-        if next_post:
-            print("trying to redirect")
-            redirect_url = reverse("blog:approval_post_detail", kwargs={'pk': next_post.id})
-            return redirect(redirect_url)
+        
         
         return HttpResponse("POST request processed successfully")
 

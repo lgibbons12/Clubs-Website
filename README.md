@@ -70,7 +70,21 @@ Now we are going to work on making the create and edit clubs page
 
 
 
-we are on branch approveview
+we are on branch redirection
 
 
 okay the issue now is that we are having trouble with redirecting the url and deleting the item
+
+
+
+
+GPT stuff:
+
+
+i don't know if it needs css or javascript, but in the html code below i have a block with info. When the approve button is clicked i want an animation that turns the box green with just a check mark on it, and when denied is clicked i want an animation that turns the box red with just an x mark. Here's the html:
+
+
+okay but rewrite this because when clicked i want all content within the container div to disappear, and container to turn green or red and have a check mark on it
+
+
+The plan is to just do an animation when they click approve or deny and then have a secondary button perform the redirect functonality
