@@ -666,3 +666,21 @@ body {
   color: white;
   font-size: 24px;
 }
+
+.animate-approval {
+  animation: approval-animation 2s ease-in-out;
+}
+
+@keyframes approval-animation {
+  0% {
+      opacity: 1;
+  }
+  50% {
+      opacity: 0.5;
+      transform: scale(1.1);
+  }
+  100% {
+      opacity: 0;
+      transform: scale(1.5);
+  }
+}

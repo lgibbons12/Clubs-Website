@@ -63,8 +63,8 @@ def ApprovalView(request):
     # Create a ThingsToApprove instance without saving it to the database
     unapproved = ThingsToApprove()
     unapproved.save()
-    with open("blog/static/blog/id.txt", 'w') as f:
-        f.write(f"{unapproved.id}")
+    #with open("blog/static/blog/id.txt", 'w') as f:
+        #f.write(f"{unapproved.id}")
 
     # Use the set() method to associate posts and clubs with the unapproved instance
     unapproved.posts.set(unapproved_posts)
@@ -109,9 +109,13 @@ def approval_code(request):
         id = data.get("id", None)
 
         # Getting the many-to-many model to edit relationships
-        with open("blog/static/blog/id.txt", "r") as f:
-            mtmid = f.read()
-        mtm = get_object_or_404(ThingsToApprove, id=mtmid)
+        #with open("blog/static/blog/id.txt", "r") as f:
+            #mtmid = f.read()
+        mtm = ThingsToApprove.objects.first()
+
+        if mtm is None:
+            raise MemoryError("No ThingsToApprove found")
+        
 
         if param == "approved":
             if model == "post":
@@ -150,3 +154,39 @@ def approval_code(request):
     else:
         # Handle other HTTP methods if needed
         return JsonResponse({'error': 'Invalid request method'})
+
+def approve_next(request):
+    mtm = ThingsToApprove.objects.first()
+
+    if mtm is None:
+        raise MemoryError("No ThingsToApprove found")
+
+    if mtm.posts.count() > 0:
+        id = mtm.posts.all().first().id
+        reversed_url = reverse('blog:approval_post_detail', kwargs={'pk': id})
+        try:
+            
+            return redirect(reversed_url)
+        except:
+            print("Redirect to approval_post_detail did not work")
+            
+            # If the redirect fails, you can use HttpResponseRedirect directly
+            from django.http import HttpResponseRedirect
+            item = mtm.posts.get(id=id)
+            print(item.name)
+            print(id)
+            return HttpResponseRedirect(reversed_url)
+        
+    
+    elif mtm.clubs.count() > 0:
+        id = mtm.clubs.all().first().id
+        reversed_url = reverse('blog:approval_club_detail', kwargs={'id': id})
+        return redirect(reversed_url)
+        
+    
+    else:
+        reversed_url = reverse("blog:index")
+        return redirect(reversed_url)
+    
+    return HttpResponse("GET successfully processed")
+    

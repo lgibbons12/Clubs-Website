@@ -53,8 +53,13 @@
 <button class = "approvingness" id="yes_button" data-param="approved" the-id="{{ object.id }}" model="post">Approve</button>
 <button class = "approvingness" id="no_button" data-param="denied" the-id="{{ object.id }}" model="post">Deny</button>
 
+</div>
 
-
+<div class="Next">
+    <a href="{% url 'blog:approve_next' %}" class="link-button">
+        <button type="button">Next</button>
+    </a>
+</div>
 
 
 <script>
@@ -80,6 +85,12 @@
             var param = this.getAttribute('data-param');
             var id = this.getAttribute("the-id");
             var model = this.getAttribute("model");
+            
+            var container = document.querySelector('.container');
+
+            // Add animation class to container
+            container.classList.add('animate-approval');
+
 
             // Use AJAX to send a request to a Django view with the parameter
             var xhr = new XMLHttpRequest();
@@ -107,7 +118,7 @@
 
 
 
-</div>
+
 </body>
 
 </html>
