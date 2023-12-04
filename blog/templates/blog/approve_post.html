@@ -44,6 +44,7 @@
 
 
 <div class="container">
+    <div class="stuff">
     <h1>Approving Posts</h1>
 <h2 class="post-title">{{ object.name }}</h2>
 <p class="post-date">{{ object.pub_date|date:"F j, Y" }}</p>
@@ -52,11 +53,23 @@
     </div>
 <button class = "approvingness" id="yes_button" data-param="approved" the-id="{{ object.id }}" model="post">Approve</button>
 <button class = "approvingness" id="no_button" data-param="denied" the-id="{{ object.id }}" model="post">Deny</button>
+</div>
+<div class="check-mark-container" style="display: none;">
+    <svg class="check-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Circle -->
+        <circle cx="12" cy="12" r="10" fill="green" />
+    
+        <!-- Checkmark -->
+        <polyline points="7 13 10 16 17 9" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+    </svg>
+    
+</div>
 
 </div>
 
 
 <script>
+   
     function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -81,10 +94,18 @@
             var model = this.getAttribute("model");
             
             var container = document.querySelector('.container');
+            var checkMarkContainer = container.querySelector('.check-mark-container');
+            var stuff = container.querySelector(".stuff");
 
-            // Add animation class to container
-            container.classList.add('animate-approval');
-
+            if (param === "approved") {
+                container.classList.add('animate-approval');
+                checkMarkContainer.style.display = 'block';
+                stuff.style.display = 'none';
+                checkMarkContainer.style.display = 'block';
+                
+                
+            }
+            
 
             // Use AJAX to send a request to a Django view with the parameter
             var xhr = new XMLHttpRequest();
@@ -99,6 +120,7 @@
                 if (xhr.status == 200) {
                     console.log(xhr.responseText);
                     // Handle the response from the server if needed
+                    
                     setTimeout(function() {
                             window.location.href = '{% url "blog:approve_next" %}';
                         }, 2000); // 2000 milliseconds = 2 seconds (duration of the animation)

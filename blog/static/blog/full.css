@@ -667,7 +667,26 @@ body {
   font-size: 24px;
 }
 
+
+.container {
+  position: relative;
+}
+
+.check-mark-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none; /* Initially hide the check mark container */
+}
+
+.check-mark {
+  width: 50px; /* Adjust the size of the check mark as needed */
+  height: 50px;
+}
+
 .animate-approval {
+  
   animation: approval-animation 2s ease-in-out;
 }
 
@@ -678,6 +697,7 @@ body {
   50% {
       opacity: 0.5;
       transform: scale(1.1);
+      
   }
   100% {
       opacity: 0;
