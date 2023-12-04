@@ -55,12 +55,6 @@
 
 </div>
 
-<div class="Next">
-    <a href="{% url 'blog:approve_next' %}" class="link-button">
-        <button type="button">Next</button>
-    </a>
-</div>
-
 
 <script>
     function getCookie(name) {
@@ -98,14 +92,19 @@
 
             // Set up the request headers if needed
             xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+            xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8'); // Add this line
 
             // Define what happens on successful data submission
             xhr.onload = function () {
                 if (xhr.status == 200) {
                     console.log(xhr.responseText);
                     // Handle the response from the server if needed
+                    setTimeout(function() {
+                            window.location.href = '{% url "blog:approve_next" %}';
+                        }, 2000); // 2000 milliseconds = 2 seconds (duration of the animation)
+                    }
                 }
-            };
+           
 
             // Send the request with the parameter
             xhr.send(JSON.stringify({'param': param, "id": id, "model": model}));
