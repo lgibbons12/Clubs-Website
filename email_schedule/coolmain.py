@@ -11,7 +11,7 @@ load_dotenv(encoding='utf-8')
 def list_of_lists_to_html(club_list, blog_list):
     html_content = "<html><body>"
     html_content += "<h1>Good morning! These are the current unapproved blog posts and clubs.</h1>"
-    link = "https://google.com"
+    link = "http://127.0.0.1:8000/blog/approval/"
     html_content += f"<h2><a href='{link}'>Please click this link below to approve them!</a></h2>"
 
     

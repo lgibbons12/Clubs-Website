@@ -180,12 +180,22 @@ def approve_next(request):
     
     elif mtm.clubs.count() > 0:
         id = mtm.clubs.all().first().id
-        reversed_url = reverse('blog:approval_club_detail', kwargs={'id': id})
-        return redirect(reversed_url)
+        reversed_url = reverse('blog:approval_club_detail', kwargs={'pk': id})
+        try:
+            return redirect(reversed_url)
+        except:
+            print("Redirect to approval_club_detail did not work")
+
+            #If the redirecvt fails you can use HTTPResponse Redirect directly
+            from django.http import HttpResponseRedirect
+            item = mtm.clubs.get(id=id)
+            print(item.name)
+            print(id)
+            return HttpResponseRedirect(reversed)
         
     
     else:
-        reversed_url = reverse("blog:index")
+        reversed_url = reverse("display:index")
         return redirect(reversed_url)
     
     return HttpResponse("GET successfully processed")
