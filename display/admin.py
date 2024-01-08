@@ -1,8 +1,9 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from .models import Club
 # Register your models here.
 from google_sheets import sheets
 from email_schedule import coolmain
+from django.shortcuts import redirect
 import random
 
 funny_words = [
@@ -29,10 +30,21 @@ def dupe_club(modeladmin, request, queryset):
 
 @admin.action(description="Reset Club Information from A Spreadsheet")
 def reset_sheets(modeladmin, request, queryset):
-    link = queryset.first().sheet_link
-    obs = Club.objects.all()
-    obs.delete()
-    sheets.main(sheet=link)
+    #create club backup
+    backup_clubs = list(Club.objects.values())
+
+    #trying the deletion
+    try:
+        link = queryset.first().sheet_link
+        obs = Club.objects.all()
+        obs.delete()
+        sheets.main(sheet=link)
+    except:
+         Club.objects.bulk_create([Club(**club) for club in backup_clubs])
+         messages.error(request, f'API request failed. Try rerunning with correct link')
+         return redirect('admin:display_club_changelist')
+    
+    messages.success(request, 'Clubs reset successfully!')
 
 
     

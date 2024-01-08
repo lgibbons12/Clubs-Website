@@ -87,4 +87,4 @@ i don't know if it needs css or javascript, but in the html code below i have a 
 okay but rewrite this because when clicked i want all content within the container div to disappear, and container to turn green or red and have a check mark on it
 
 
-The plan is to just do an animation when they click approve or deny and then have a secondary button perform the redirect functonality
+The plan is to just do an animation when they click approve or deny and then have a secondary button perform the redirect functonalityr

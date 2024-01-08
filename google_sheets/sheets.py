@@ -64,7 +64,9 @@ def main(sheet = None, dfy = False, testing_link = False):
 
 
     parts = sheet.split("/")
+    
     id = parts[5]
+    
     if testing_link:
         return id
     creds = None
